@@ -1,0 +1,195 @@
+{
+  "appName": "Delta Scanner V7.4 Professional Hard-Gate Bot",
+  "version": "V7.4-PRO-HARD-GATE-PAPER",
+  "mode": "PAPER",
+  "exchange": {
+    "baseUrl": "https://api.india.delta.exchange",
+    "scope": "Delta Exchange India perpetual futures only"
+  },
+  "bot": {
+    "running": true,
+    "liveMode": true,
+    "autoOrders": false,
+    "emergencyStopped": false,
+    "scanIntervalSec": 90
+  },
+  "wallet": {
+    "totalWalletAmount": 10000,
+    "botUsableAmount": 1200,
+    "currency": "INR"
+  },
+  "risk": {
+    "maxOpenTrades": 3,
+    "maxTradesPerDay": 2,
+    "maxDailyLossPct": 2,
+    "maxConsecutiveLosses": 2,
+    "defaultLeverage": 3,
+    "hardLeverageCap": 5,
+    "minScore": 90,
+    "paperMinScore": 90,
+    "liveMinScore": 95,
+    "minRR": 3,
+    "defaultRiskPct": 0.5,
+    "tier1MaxRiskPct": 1,
+    "tier2RiskPct": 0.25,
+    "adrUsedLimitPct": 80,
+    "timeFailureCandles": 8,
+    "timeFailureMinR": 0.5,
+    "pendingExpiryMinutes": 45,
+    "maxSpreadPct": 0.25,
+    "atrBufferMult": 0.35,
+    "entryToleranceAtr": 0.35,
+    "minSlAtrMult": 0.6,
+    "maxSlAtrMult": 4.5,
+    "minTrendQuality": 30,
+    "moveSlAfterTp1MinR": 1,
+    "moveSlAfterTp1MinAge": 30
+  },
+  "paper": {
+    "takerFeePct": 0.05,
+    "slippageBps": 2,
+    "tp1ClosePct": 50
+  },
+  "strategy": {
+    "name": "V7.4 Professional Transcript Hard-Gate Model",
+    "primaryEntryOnly": true,
+    "allowTrendContinuationFallback": false,
+    "hardGateMode": true,
+    "enabledModules": [
+      "MACD_CCI_ALIGNMENT",
+      "EMA_CHANNEL_HA_MACD",
+      "ICT_ORDER_BLOCK",
+      "EMA_7_17_SCALP"
+    ],
+    "requireLiquiditySweep": false,
+    "requireImbalance": true,
+    "requireBosChoch": true,
+    "requireRetest": true,
+    "requireStructureSL": true,
+    "requireTrendAgreement": true,
+    "requireMacdAgreement": true,
+    "requireHeikinAshiAgreement": true,
+    "qqeMode": "SOFT_FILTER",
+    "scoreMax": 100,
+    "activeStack": [
+      "MACD + CCI aligned crossings",
+      "EMA channel pullback + Heikin Ashi + MACD histogram",
+      "ICT Order Block with imbalance + BOS/CHoCH + first retest",
+      "EMA 7/17 strong-slope scalping",
+      "Higher-timeframe confirmation",
+      "Strict candle confirmation",
+      "ATR/ADR risk filters"
+    ],
+    "filtersOnly": [
+      "Higher timeframe trend",
+      "Candle strength",
+      "MACD histogram momentum",
+      "CCI threshold crossings",
+      "EMA channel location",
+      "Order block freshness",
+      "ATR",
+      "ADR",
+      "Spread"
+    ],
+    "removedIndicators": [
+      "Supertrend",
+      "POC/VAH/VAL value-area scoring",
+      "RSI-only",
+      "VWAP-only",
+      "Ichimoku-only",
+      "Stochastic-only"
+    ],
+    "rejectedStandalone": [
+      "EMA color-only",
+      "EMA crossover-only",
+      "Heikin Ashi-only",
+      "MACD-only",
+      "CCI-only",
+      "QQE-only",
+      "RSI-only",
+      "POC bounce",
+      "breakout chase without retest",
+      "sideways scalping"
+    ]
+  },
+  "symbols": {
+    "tier1": [
+      "BTC",
+      "ETH",
+      "SOL",
+      "BNB",
+      "XRP"
+    ],
+    "tier2": [
+      "ADA",
+      "AVAX",
+      "LINK",
+      "DOGE",
+      "POL",
+      "MATIC",
+      "LTC",
+      "DOT",
+      "BCH",
+      "INJ",
+      "APT",
+      "ARB",
+      "ATOM"
+    ],
+    "candidates": {
+      "BTC": [
+        "BTCUSD"
+      ],
+      "ETH": [
+        "ETHUSD"
+      ],
+      "SOL": [
+        "SOLUSD"
+      ],
+      "BNB": [
+        "BNBUSD"
+      ],
+      "XRP": [
+        "XRPUSD"
+      ],
+      "ADA": [
+        "ADAUSD"
+      ],
+      "AVAX": [
+        "AVAXUSD"
+      ],
+      "LINK": [
+        "LINKUSD"
+      ],
+      "DOGE": [
+        "DOGEUSD"
+      ],
+      "POL": [
+        "POLUSD"
+      ],
+      "MATIC": [
+        "MATICUSD"
+      ],
+      "LTC": [
+        "LTCUSD"
+      ],
+      "DOT": [
+        "DOTUSD"
+      ],
+      "BCH": [
+        "BCHUSD"
+      ],
+      "INJ": [
+        "INJUSD"
+      ],
+      "APT": [
+        "APTUSD"
+      ],
+      "ARB": [
+        "ARBUSD"
+      ],
+      "ATOM": [
+        "ATOMUSD"
+      ]
+    }
+  }
+}

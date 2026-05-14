@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Delta Scanner V7.4 Professional Hard-Gate</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="top-header">
+      <div class="header-left">
+        <h1>Delta Scanner V7.4</h1>
+        <div id="lastUpdate" class="subline">Last update: - | Coins: -</div>
+        <nav class="tabs tabs-inline">
+          <button class="tab active" data-tab="dashboard">DASHBOARD</button>
+          <button class="tab" data-tab="chart">CHART</button>
+          <button class="tab" data-tab="strategies">STRATEGIES</button>
+          <button class="tab" data-tab="trades">TRADES</button>
+          <button class="tab" data-tab="logs">LOGS</button>
+          <button class="tab" data-tab="settings">SETTINGS</button>
+        </nav>
+      </div>
+      <div class="header-right">
+        <div class="scanner-filters" aria-label="Scanner filters">
+          <button class="filter-btn active" data-filter="ALL">ALL</button>
+          <button class="filter-btn" data-filter="LONG">LONG</button>
+          <button class="filter-btn" data-filter="SHORT">SHORT</button>
+          <button class="filter-btn" data-filter="WAIT">WAIT</button>
+          <button class="filter-btn" data-filter="STRONG">STRONG</button>
+          <button id="sortScoreBtn" class="filter-btn">SCORE</button>
+          <button id="sortRrBtn" class="filter-btn">RR</button>
+          <button id="refreshBtn" class="filter-btn refresh">⟳ Refresh</button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section id="dashboard" class="page active">
+        <div class="toolbar panel thin">
+          <div class="toolbar-row">
+            <span id="marketBadge" class="badge green">LIVE MARKET-DATA</span>
+            <span id="botBadge" class="badge green">BOT ON</span>
+            <span id="modeBadge" class="badge paper">PAPER SIM</span>
+            <button id="scanBtn" class="mini-btn blue">Scan Now</button>
+            <button id="startBtn" class="mini-btn green">Start Bot</button>
+            <button id="stopBtn" class="mini-btn amber">Stop Bot</button>
+            <button id="emergencyBtnTop" class="mini-btn red">Emergency Stop</button>
+          </div>
+        </div>
+
+        <div id="metrics" class="metric-grid"></div>
+
+        <div class="panel open-panel">
+          <div class="panel-head">
+            <h2>OPEN TRADES <span id="openCount">(0)</span></h2>
+            <button class="link-btn" data-jump="trades">View All</button>
+          </div>
+          <div class="table-wrap"><table id="openTradesTable" class="scanner-table"></table></div>
+        </div>
+
+        <div class="panel scanner-panel">
+          <div class="panel-head">
+            <h2>SCANNER SIGNALS</h2>
+            <div class="mini-legend"><span class="legend-long">LONG</span><span class="legend-short">SHORT</span><span class="legend-wait">WAIT</span><span class="legend-strong">STRONG</span></div>
+          </div>
+          <div class="table-wrap"><table id="signalsTable" class="scanner-table main-scan"></table></div>
+        </div>
+
+        <div class="summary-grid">
+          <div class="panel summary-card">
+            <div class="panel-head"><h3>OPEN TRADES</h3><button class="link-btn" data-jump="trades">View All</button></div>
+            <div id="openSummary"></div>
+          </div>
+          <div class="panel summary-card">
+            <div class="panel-head"><h3>PERFORMANCE SUMMARY</h3><button class="link-btn" data-jump="trades">View All</button></div>
+            <div id="perfSummary"></div>
+          </div>
+          <div class="panel summary-card">
+            <div class="panel-head"><h3>CLOSED TRADES</h3><button class="link-btn" data-jump="trades">View All</button></div>
+            <div id="closedSummary"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="chart" class="page">
+        <div class="panel">
+          <div class="panel-head">
+            <h2>Chart</h2>
+            <div class="controls">
+              <select id="chartSymbol"></select>
+              <select id="chartTf">
+                <option>5m</option><option selected>15m</option><option>1h</option><option>4h</option><option>1d</option>
+              </select>
+              <button id="loadChartBtn" class="filter-btn active">Load Chart</button>
+            </div>
+          </div>
+          <canvas id="chartCanvas" width="1180" height="520"></canvas>
+          <div id="signalPanel" class="signal-panel"></div>
+        </div>
+      </section>
+
+      <section id="strategies" class="page">
+        <div class="panel strategy-card">
+          <h2>Active Strategy</h2>
+          <p class="big">V7.4 Professional Hard-Gate Model</p>
+          <p>Only one trade engine is active: liquidity sweep → fresh order block → imbalance/FVG → BOS/CHOCH → first retest. Indicators are confirmation gates only. The bot blocks trades when the MACD line/histogram color, EMA trend, Heikin Ashi, and higher-timeframe bias disagree with the proposed side.</p>
+          <div class="rules-grid">
+            <div><h3>Entry Engine</h3><ul><li>Liquidity sweep / inducement mandatory</li><li>Fresh unmitigated order block mandatory</li><li>Imbalance/FVG mandatory</li><li>BOS/CHOCH mandatory</li><li>First retest confirmation mandatory</li></ul></div>
+            <div><h3>Confirmation Stack</h3><ul><li>EMA20/50/200 trend channel</li><li>MACD line + histogram color</li><li>Heikin Ashi momentum confirmation</li><li>QQE Mod as soft confirmation only</li><li>ATR, ADR, volume, PDH/PDL risk filters</li></ul></div>
+            <div><h3>Removed / Rejected</h3><ul><li>Pure EMA crossover</li><li>Pure Supertrend / CCI logic</li><li>MACD-only or QQE-only entries</li><li>POC / value-area bounce logic</li><li>Breakout chasing</li><li>1-minute scalping</li></ul></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="trades" class="page">
+        <div class="panel">
+          <div class="panel-head"><h2>Trades</h2><button id="exportCsvBtn" class="filter-btn">Export Closed CSV</button></div>
+          <h3>Open / Pending</h3>
+          <div class="table-wrap"><table id="tradesOpenTable" class="scanner-table"></table></div>
+          <h3>Closed</h3>
+          <div class="table-wrap"><table id="tradesClosedTable" class="scanner-table"></table></div>
+        </div>
+      </section>
+
+      <section id="logs" class="page">
+        <div class="panel">
+          <div class="panel-head"><h2>Logs</h2><button id="reloadLogsBtn" class="filter-btn">Reload</button></div>
+          <div class="table-wrap"><table id="logsTable" class="scanner-table"></table></div>
+        </div>
+      </section>
+
+      <section id="settings" class="page">
+        <div class="panel settings-panel">
+          <div class="panel-head">
+            <h2>SETTINGS</h2>
+            <span class="muted">Controls simulated capital and paper risk only</span>
+          </div>
+          <div class="settings-form-grid">
+            <label>TOTAL WALLET AMOUNT <input id="totalWallet" type="number" min="0" step="1" /></label>
+            <label>BOT USABLE AMOUNT <input id="botUsable" type="number" min="0" step="1" /></label>
+            <label>MAX OPEN TRADES <input id="maxOpenTrades" type="number" min="1" step="1" /></label>
+            <label>MAX TRADES / DAY <input id="maxTradesPerDay" type="number" min="1" step="1" /></label>
+
+            <label>MAX DAILY LOSS % <input id="maxDailyLossPct" type="number" min="0" step="0.1" /></label>
+            <label>MAX CONSECUTIVE LOSSES <input id="maxConsecutiveLosses" type="number" min="1" step="1" /></label>
+            <label>MIN SCORE <input id="minScore" type="number" min="0" step="1" /></label>
+            <label>PAPER MIN SCORE <input id="paperMinScore" type="number" min="0" step="1" /></label>
+
+            <label>MIN RR <input id="minRR" type="number" min="0" step="0.1" /></label>
+            <label>ADR USED LIMIT % <input id="adrUsedLimitPct" type="number" min="0" step="1" /></label>
+            <label>TIME-FAILURE CANDLES <input id="timeFailureCandles" type="number" min="1" step="1" /></label>
+            <label>PENDING EXPIRY MINUTES <input id="pendingExpiryMinutes" type="number" min="1" step="1" /></label>
+
+            <label>ATR SL BUFFER MULT <input id="atrBufferMult" type="number" min="0" step="0.01" /></label>
+            <label>MIN SL ATR MULT <input id="minSlAtrMult" type="number" min="0" step="0.1" /></label>
+            <label>MAX SL ATR MULT <input id="maxSlAtrMult" type="number" min="0" step="0.1" /></label>
+            <label>MIN TREND QUALITY <input id="minTrendQuality" type="number" min="0" max="100" step="1" /></label>
+
+            <label>MOVE SL AFTER TP1 MIN R <input id="moveSlAfterTp1MinR" type="number" min="0" step="0.1" /></label>
+            <label>MOVE SL AFTER TP1 MIN AGE <input id="moveSlAfterTp1MinAge" type="number" min="0" step="1" /></label>
+            <label>DEFAULT RISK % <input id="riskPct" type="number" min="0" step="0.1" /></label>
+            <label>DEFAULT LEVERAGE <input id="leverage" type="number" min="1" step="1" /></label>
+          </div>
+          <div class="settings-actions">
+            <button id="saveSettingsBtn" class="filter-btn active">Save Settings</button>
+            <button id="resetPaperBtn" class="filter-btn danger-btn">Reset Paper Wallet</button>
+            <span id="settingsSaveStatus" class="muted">Changes auto-apply locally and auto-save after a short delay.</span>
+          </div>
+        </div>
+
+        <div class="settings-grid lower-settings">
+          <div class="panel warning">
+            <h2>Live Trading / API Keys</h2>
+            <p>Live auto-orders are blocked in this build. API test exists only for connection validation. Paper mode uses live market data.</p>
+            <details>
+              <summary>API Key Controls</summary>
+              <label>API Key <input id="apiKey" type="password" autocomplete="off" /></label>
+              <label>API Secret <input id="apiSecret" type="password" autocomplete="off" /></label>
+              <div class="controls">
+                <button id="saveKeysBtn" class="filter-btn">Save Keys</button>
+                <button id="testKeysBtn" class="filter-btn">Test Connection</button>
+                <button id="deleteKeysBtn" class="filter-btn danger-btn">Delete Keys</button>
+              </div>
+              <label class="check"><input id="ackLive" type="checkbox" /> I understand real-money futures trading can lose capital.</label>
+              <div class="controls">
+                <button id="liveModeBtn" class="filter-btn">Toggle Live Review Mode</button>
+                <button id="autoOrdersBtn" class="filter-btn danger-btn">Try Auto Orders</button>
+              </div>
+              <div id="apiStatus" class="muted"></div>
+            </details>
+          </div>
+          <div class="panel danger">
+            <h2>Risk Warning</h2>
+            <p>This bot does not guarantee profit. Crypto futures are high-risk instruments. Losses can happen even on high-quality setups. Paper test first. Use live funds only after manual review and strict risk control.</p>
+            <button id="emergencyBtn" class="filter-btn danger-btn wide">Emergency Stop</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="/app.js"></script>
+</body>
+</html>
