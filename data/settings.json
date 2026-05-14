@@ -7,15 +7,15 @@
     "scope": "Delta Exchange India perpetual futures only"
   },
   "bot": {
-    "running": true,
-    "liveMode": true,
+    "running": false,
+    "liveMode": false,
     "autoOrders": false,
     "emergencyStopped": false,
     "scanIntervalSec": 90
   },
   "wallet": {
-    "totalWalletAmount": 10000,
-    "botUsableAmount": 1200,
+    "totalWalletAmount": 100000,
+    "botUsableAmount": 25000,
     "currency": "INR"
   },
   "risk": {
@@ -35,10 +35,10 @@
     "adrUsedLimitPct": 80,
     "timeFailureCandles": 8,
     "timeFailureMinR": 0.5,
-    "pendingExpiryMinutes": 45,
     "maxSpreadPct": 0.25,
     "atrBufferMult": 0.35,
     "entryToleranceAtr": 0.35,
+    "pendingExpiryMinutes": 45,
     "minSlAtrMult": 0.6,
     "maxSlAtrMult": 4.5,
     "minTrendQuality": 30,
@@ -69,7 +69,6 @@
     "requireTrendAgreement": true,
     "requireMacdAgreement": true,
     "requireHeikinAshiAgreement": true,
-    "qqeMode": "SOFT_FILTER",
     "scoreMax": 100,
     "activeStack": [
       "MACD + CCI aligned crossings",

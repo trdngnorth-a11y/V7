@@ -16,9 +16,10 @@ const { URL } = require('url');
 
 const APP_VERSION = 'V7.4-PRO-HARD-GATE-PAPER';
 const ROOT = __dirname;
-const DATA_DIR = path.join(ROOT, 'data');
+const DATA_DIR = process.env.DATA_DIR ? path.resolve(process.env.DATA_DIR) : path.join(ROOT, 'data');
 const PUBLIC_DIR = path.join(ROOT, 'public');
 const PORT = Number(process.env.PORT || 4000);
+const HOST = process.env.HOST || '0.0.0.0';
 const DELTA_BASE = 'https://api.india.delta.exchange';
 const USER_AGENT = 'DeltaScannerV7.4-ProHardGate-Node';
 
@@ -1843,10 +1844,12 @@ function bootstrapDataFiles() {
 
 bootstrapDataFiles();
 const server = http.createServer(route);
-server.listen(PORT, '127.0.0.1', () => {
-  console.log(`Delta Scanner V7.4 Professional Hard-Gate running: http://127.0.0.1:${PORT}`);
+server.listen(PORT, HOST, () => {
+  const displayHost = HOST === '0.0.0.0' ? 'localhost' : HOST;
+  console.log(`Delta Scanner V7.4 Professional Hard-Gate running: http://${displayHost}:${PORT}`);
+  console.log(`Bound to ${HOST}:${PORT}`);
   console.log('Default mode: PAPER. Live auto-orders are blocked in this build.');
-  log('BOOT', `Server started on port ${PORT}`, { version: APP_VERSION });
+  log('BOOT', `Server started on ${HOST}:${PORT}`, { version: APP_VERSION });
   scanMarkets(true).catch(err => log('BOOT_SCAN_ERROR', 'Initial scan failed', { error: err.message }));
 });
 

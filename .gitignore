@@ -1,12 +1,4 @@
-cat > .gitignore <<'EOF'
 node_modules/
 .env
-.env.*
 *.log
 .DS_Store
-
-data/apiKeys.json
-data/logs.json
-data/trades.json
-data/paperWallet.json
-EOF

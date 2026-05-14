@@ -1,0 +1,23 @@
+{
+  "name": "v7-professional-hardgate-bot",
+  "version": "7.4.1",
+  "private": true,
+  "description": "Delta Scanner V7.4 Professional Hard-Gate Bot backend",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "check": "node --check server.js"
+  },
+  "engines": {
+    "node": ">=20 <23"
+  },
+  "keywords": [
+    "trading",
+    "delta",
+    "scanner",
+    "paper-trading",
+    "render"
+  ],
+  "author": "Trading North",
+  "license": "UNLICENSED"
+}

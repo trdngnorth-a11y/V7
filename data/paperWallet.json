@@ -1,0 +1,11 @@
+{
+  "startingEquity": 25000,
+  "equity": 25000,
+  "available": 25000,
+  "usedMargin": 0,
+  "openPnl": 0,
+  "closedPnl": 0,
+  "baseUsableAmount": 25000,
+  "totalWalletAmount": 100000,
+  "updatedAt": null
+}

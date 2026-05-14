@@ -1,0 +1,11 @@
+{
+  "hasKey": false,
+  "apiKeyMasked": "",
+  "apiKeyHash": "",
+  "secretEncrypted": "",
+  "iv": "",
+  "tag": "",
+  "testPassed": false,
+  "lastTestAt": null,
+  "lastError": null
+}
